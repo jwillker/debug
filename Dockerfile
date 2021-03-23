@@ -44,6 +44,7 @@ RUN apt-get update && apt-get -y install --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Configure perf
 RUN rm /usr/bin/perf && ln -s /usr/lib/linux-tools/4.15.0-139-generic/perf /usr/bin/perf
 
 # Install Go
