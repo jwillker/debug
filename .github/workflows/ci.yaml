@@ -6,7 +6,8 @@ on:
       - 'develop'
 
 jobs:
-  docker:
+  Build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
@@ -25,6 +26,11 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
+  Scan:
+    name: Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
