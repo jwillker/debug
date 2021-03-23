@@ -1,10 +1,14 @@
 FROM ubuntu:bionic
 ARG DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Initial
 RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y gnupg ca-certificates curl
+    apt-get -y install \
+    --no-install-recommends \
+    gnupg ca-certificates curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # MongoDB
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
@@ -37,7 +41,8 @@ RUN apt-get update && apt-get -y install --no-install-recommends \
     python \
     kubectl \
     linux-tools-generic \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN rm /usr/bin/perf && ln -s /usr/lib/linux-tools/4.15.0-139-generic/perf /usr/bin/perf
 
