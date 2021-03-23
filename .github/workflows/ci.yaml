@@ -38,3 +38,11 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+  Code Analysis:
+    name: Code Analysis
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
